@@ -6,7 +6,7 @@ services:
         image: postgres:13.1
         restart: always
         volumes:
-            - ./docker/data/db:/var/lib/postgresql/data:delegated,rw
+            - db-data:/var/lib/postgresql/data:rw
         environment:
             POSTGRES_DB: app
             POSTGRES_USER: user
@@ -24,6 +24,7 @@ services:
             - ./:/var/www/app:cached
             - /etc/timezone:/etc/timezone:cached
         environment:
+            DB_CONNECTION: pgsql
             DB_HOST: db
             DB_PORT: 5432
             DB_DATABASE: app
@@ -63,5 +64,4 @@ networks:
         driver: bridge
 
 volumes:
-    data:
-        driver: local
+    db-data:

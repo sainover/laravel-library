@@ -7,13 +7,17 @@
 @section('content')
     <form method="POST" action="{{ route('import.upload') }}" enctype="multipart/form-data">
         @csrf
-        <div class="form-group">
-            @error('file')
-                <div class="alert alert-danger">{{ $message }}</div>
-            @enderror
-            <label for="file">XML import file</label>
-            <input type="file" name="file" id="file" class="form-control-file">
+        <div class="input-group is-invalid">
+            <div class="custom-file">
+                <input type="file" name="file" id="file" class="custom-file-input">
+                <label class="custom-file-label" for="file">Choose file...</label>
+            </div>
+            <div class="input-group-append">
+                <button type="submit" class="btn btn-outline-secondary">Upload</button>
+            </div>
         </div>
-        <button type="submit" class="btn btn-success">Upload</button>
+        @error('file')
+            <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
     </form>
 @endsection

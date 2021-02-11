@@ -6,6 +6,7 @@
 
 @section('content')
     @foreach ($books as $book)
-       $book.title 
+       <p>{{ $book->title }}</p>
+       <img src="{{ $book->hasMedia() ? $book->getFirstMediaUrl('default', 'thumb') : null }}">
     @endforeach
 @endsection

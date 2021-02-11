@@ -1,6 +1,6 @@
 DC=docker-compose
-DCEXEC=${DC} exec
-DCEXEC_PHP=${DCEXEC} -u 1000 php
+DCEXEC=${DC} exec -u 1000
+DCEXEC_PHP=${DCEXEC} php
 
 up:
 	${DC} up -d --build
@@ -11,8 +11,11 @@ down:
 bash:
 	${DCEXEC_PHP} bash
 
-composer:
-	${DC} run --rm -u 1000 composer bash
-
 composer-install:
-	${DC} run --rm -u 1000 composer composer install
+	${DCEXEC_PHP} composer install
+
+queue:
+	${DCEXEC} queue bash
+
+queue-restart:
+	${DCEXEC} queue php artisan queue:restart

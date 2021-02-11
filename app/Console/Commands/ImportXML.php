@@ -3,6 +3,8 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Storage;
+use Prewk\XmlStringStreamer;
 
 class ImportXML extends Command
 {
@@ -19,6 +21,8 @@ class ImportXML extends Command
      * @var string
      */
     protected $description = 'Import books form XML file';
+
+    protected XmlStringStreamer $streamer;
 
     /**
      * Create a new command instance.
@@ -37,6 +41,14 @@ class ImportXML extends Command
      */
     public function handle()
     {
+        $streamer = XmlStringStreamer::createStringWalkerParser(Storage::get($this->argument('path')));
+
+        while($node = $this->streamer->getNode()) {
+            $simpleXmlNode = simplexml_load_string($node);
+            $this->info((string)$simpleXmlNode);
+            return 0;
+        }
+
         return 0;
     }
 }

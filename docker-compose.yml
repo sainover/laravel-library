@@ -77,6 +77,7 @@ services:
             - app
 
     node:
+        user: "node"
         image: node:14.7.0-alpine
         volumes:
             - ./:/var/www/app:cached

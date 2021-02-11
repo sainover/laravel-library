@@ -32,3 +32,6 @@ npm-run-prod:
 
 npm-run-watch:
 	${DCRUN_NODE} npm run watch
+
+php-cs-fix:
+	${DCEXEC_PHP} vendor/bin/php-cs-fixer fix

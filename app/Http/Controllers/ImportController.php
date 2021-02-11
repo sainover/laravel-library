@@ -24,6 +24,6 @@ class ImportController extends Controller
             Import::dispatchAfterResponse($path);
         }
 
-        return redirect()->route('import.index');
+        return redirect()->route('import.index')->with('message', __('import.success'));
     }
 }

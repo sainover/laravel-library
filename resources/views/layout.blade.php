@@ -15,6 +15,7 @@
 <body>
     <div class="container">
         @include('shared/navbar')
+        @include('shared/alert')
         @yield('content')
     </div>
 

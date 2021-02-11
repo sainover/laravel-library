@@ -10,6 +10,8 @@ down:
 	${DC} down
 
 install: up composer-install npm-install npm-run-dev migrate storage-link
+	cp .env.example .env
+	${DCEXEC_PHP} php artisan key:generate
 
 # Exec bash in php service container
 bash:

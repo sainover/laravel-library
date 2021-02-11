@@ -9,7 +9,6 @@ public/fonts/
 vendor/
 node_modules/
 
-docker/
 .dockerignore
 docker-compose.yml
 

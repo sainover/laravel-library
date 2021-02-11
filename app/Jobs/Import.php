@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Models\Book;
+use App\Services\ImportService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -14,43 +15,21 @@ class Import implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    protected XmlStringStreamer $streamer;
+    protected string $filePath;
 
     /**
-     * Create a new job instance.
-     *
      * @return void
      */
     public function __construct(string $filePath)
     {
-        chdir(storage_path('app'));
-        $this->streamer = XmlStringStreamer::createStringWalkerParser($filePath, ['captureDepth' => 3]);
+        $this->filePath = $filePath;
     }
 
     /**
-     * Execute the job.
-     *
      * @return void
      */
-    public function handle()
+    public function handle(ImportService $importService)
     {
-        while ($node = $this->streamer->getNode()) {
-            $simpleXmlNode = simplexml_load_string($node);
-
-            if (0 === Book::where('isbn', $simpleXmlNode->attributes()['isbn'])->count()) {
-                $book = Book::create([
-                    'title' => $simpleXmlNode->attributes()['title'],
-                    'isbn' => $simpleXmlNode->attributes()['isbn'],
-                    'description' => $simpleXmlNode->description,
-                ]);
-
-                $book
-                    ->addMediaFromUrl($simpleXmlNode->image)
-                    ->sanitizingFileName(function ($filename) {
-                        return generate_filename($filename);
-                    })
-                    ->toMediaCollection();
-            }
-        }
+        $importService->xmlParse($this->filePath);
     }
 }

@@ -74,6 +74,12 @@ services:
         networks:
             - app
 
+    node:
+        image: node:14.7.0-alpine
+        volumes:
+            - ./:/var/www/app:cached
+        working_dir: /var/www/app
+
 networks:
     app:
         driver: bridge

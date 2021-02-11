@@ -33,6 +33,8 @@ services:
             REDIS_HOST: redis
             REDIS_PORT: 6379
             REDIS_CLIENT: predis
+            THUMB_SIZE_WIDTH: 200
+            THUMB_SIZE_HEIGHT: 400
         networks:
             - app
 

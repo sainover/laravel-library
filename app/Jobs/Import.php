@@ -49,7 +49,7 @@ class Import implements ShouldQueue
                 $book
                     ->addMediaFromUrl($simpleXmlNode->image)
                     ->sanitizingFileName(function($filename) {
-                        return md5(uniqid()) . '.' . pathinfo($filename, PATHINFO_EXTENSION);
+                        return generate_filename($filename);
                     })
                     ->toMediaCollection()
                 ;

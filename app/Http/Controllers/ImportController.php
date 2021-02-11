@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ImportRequest;
 use App\Jobs\Import;
 use App\Services\ImportService;
 use Illuminate\Http\RedirectResponse;
@@ -15,7 +16,7 @@ class ImportController extends Controller
         return view('import');
     }
 
-    public function upload(Request $request, ImportService $importService): RedirectResponse
+    public function upload(ImportRequest $request): RedirectResponse
     {
         if ($request->hasFile('file')) {
             $path = $request->file('file')->store('import');

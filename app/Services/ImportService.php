@@ -31,7 +31,7 @@ class ImportService
             $simpleXmlNode = simplexml_load_string($node);
             $bookAttributes = $this->xmlElementToAttributes($simpleXmlNode);
 
-            if (!Book::where('isbn', $bookAttributes['isbn'])->exists()) {
+            if (! Book::where('isbn', $bookAttributes['isbn'])->exists()) {
                 $book = $this->bookFactory->fromArray($bookAttributes);
                 $book->saveOrFail();
             }

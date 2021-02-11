@@ -3,8 +3,13 @@ storage/framework/cache/*
 storage/framework/sessions/*
 storage/framework/views/*
 storage/logs/*
+public/css/
+public/js/
+public/fonts/
 vendor/
+node_modules/
 
+docker/
 .dockerignore
 docker-compose.yml
 

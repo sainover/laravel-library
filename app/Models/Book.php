@@ -23,7 +23,7 @@ class Book extends Model implements HasMedia
     public function registerMediaConversions(Media $media = null): void
     {
         $this->addMediaConversion('thumb')
-            ->fit(Manipulations::FIT_CROP, 300, 200)
+            ->fit(Manipulations::FIT_CROP, 200, 400)
         ;
     }
 }

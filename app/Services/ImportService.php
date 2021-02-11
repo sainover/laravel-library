@@ -25,21 +25,20 @@ class ImportService
 
     public function xmlParse(string $filePath): void
     {
-        chdir(storage_path('app'));
         $this->streamer = XmlStringStreamer::createUniqueNodeParser($filePath, self::PARS_CONFIG);
 
         while ($node = $this->streamer->getNode()) {
             $simpleXmlNode = simplexml_load_string($node);
             $bookAttributes = $this->xmlElementToAttributes($simpleXmlNode);
 
-            if (0 === Book::where('isbn', $bookAttributes['isbn'])->count()) {
+            if (!Book::where('isbn', $bookAttributes['isbn'])->exists()) {
                 $book = $this->bookFactory->fromArray($bookAttributes);
                 $book->saveOrFail();
             }
         }
     }
 
-    public function xmlElementToAttributes(SimpleXMLElement $xmlElement): array
+    private function xmlElementToAttributes(SimpleXMLElement $xmlElement): array
     {
         return [
             'title' => $xmlElement->attributes()['title'],

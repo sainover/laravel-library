@@ -8,6 +8,7 @@ use App\Services\ImportService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Prewk\XmlStringStreamer;
 
 class ImportController extends Controller
 {
@@ -19,7 +20,7 @@ class ImportController extends Controller
     public function upload(ImportRequest $request): RedirectResponse
     {
         if ($request->hasFile('file')) {
-            $path = $request->file('file')->store('import');
+            $path = $request->file('file')->getRealPath();
             Import::dispatchAfterResponse($path);
         }
 

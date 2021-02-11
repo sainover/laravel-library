@@ -5,6 +5,7 @@
 @endsection
 
 @section('content')
+    @include('books/_search_form')
     <div class="row">
         @foreach ($books as $book)
             <div class="col-lg-4 col-md-6 mb-4">

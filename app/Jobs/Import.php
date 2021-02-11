@@ -4,12 +4,10 @@ namespace App\Jobs;
 
 use App\Models\Book;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Log;
 use Prewk\XmlStringStreamer;
 
 class Import implements ShouldQueue
@@ -36,7 +34,7 @@ class Import implements ShouldQueue
      */
     public function handle()
     {
-        while($node = $this->streamer->getNode()) {
+        while ($node = $this->streamer->getNode()) {
             $simpleXmlNode = simplexml_load_string($node);
 
             if (0 === Book::where('isbn', $simpleXmlNode->attributes()['isbn'])->count()) {
@@ -45,14 +43,13 @@ class Import implements ShouldQueue
                     'isbn' => $simpleXmlNode->attributes()['isbn'],
                     'description' => $simpleXmlNode->description,
                 ]);
-    
+
                 $book
                     ->addMediaFromUrl($simpleXmlNode->image)
-                    ->sanitizingFileName(function($filename) {
+                    ->sanitizingFileName(function ($filename) {
                         return generate_filename($filename);
                     })
-                    ->toMediaCollection()
-                ;
+                    ->toMediaCollection();
             }
         }
     }

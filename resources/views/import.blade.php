@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <form method="POST" action="{{route('import.upload')}}" enctype="multipart/form-data">
+    <form method="POST" action="{{ route('import.upload') }}" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
             <label for="file">XML import file</label>

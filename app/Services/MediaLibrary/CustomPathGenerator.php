@@ -9,21 +9,21 @@ class CustomPathGenerator implements PathGenerator
 {
     public function getPath(Media $media): string
     {
-        return $this->getBasePath().'/';
+        return $this->getBasePath($media).'/';
     }
 
     public function getPathForConversions(Media $media): string
     {
-        return $this->getBasePath().'/conversions/';
+        return $this->getBasePath($media).'/conversions/';
     }
 
     public function getPathForResponsiveImages(Media $media): string
     {
-        return $this->getBasePath().'/responsive-images/';
+        return $this->getBasePath($media).'/responsive-images/';
     }
 
-    protected function getBasePath(): string
+    protected function getBasePath(Media $media): string
     {
-        return date('Y/m/Y-m-d');
+        return date('Y/m/Y-m-d', $media->getAttribute('created_at')->timestamp);
     }
 }

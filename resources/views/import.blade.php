@@ -1,10 +1,11 @@
-@extends('layout');
+@extends('layouts.app')
 
 @section('title')
     Upload XML file
 @endsection
 
 @section('content')
+<div class="container">
     <form method="POST" action="{{ route('import.upload') }}" enctype="multipart/form-data">
         @csrf
         <div class="input-group is-invalid">
@@ -20,4 +21,5 @@
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
     </form>
+</div>
 @endsection

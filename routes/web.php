@@ -8,3 +8,7 @@ Route::resource('books', BookController::class);
 
 Route::get('/import', [ImportController::class, 'index'])->name('import.index');
 Route::post('/import', [ImportController::class, 'upload'])->name('import.upload');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -1,10 +1,11 @@
-@extends('layout');
+@extends('layouts.app')
 
 @section('title')
     Books
 @endsection
 
 @section('content')
+<div class="container">
     @include('books/_search_form')
     <div class="row">
         @foreach ($books as $book)
@@ -23,4 +24,5 @@
         @endforeach
     </div>
     {{ $books->links() }}
+</div>
 @endsection
